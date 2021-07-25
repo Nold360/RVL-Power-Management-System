@@ -28,19 +28,16 @@ void RGB_fade() {
         }
         i++;
         if (color == 0) {
-            PWM3DCH = 255 - i;
-            PWM4DCH = i;
-            PWM5DCH = 0;
+            PWM6DCH = i;
+            PWM7DCH = 0;
         }
         if (color == 1) {
-            PWM3DCH = 0;
-            PWM4DCH = 255 - i;
-            PWM5DCH = i;
+            PWM6DCH = 255 - i;
+            PWM7DCH = i;
         }
         if (color == 2) {
-            PWM3DCH = i;
-            PWM4DCH = 0;
-            PWM5DCH = 255 - i;
+            PWM6DCH = 0;
+            PWM7DCH = 255 - i;
         }
     }
 }
@@ -71,16 +68,14 @@ void battery_fade() {
     //yellow-red: 63-0
     if (v <= 63) {
         v = Map(v, 0, 63, 0, 255);
-        PWM3DCH = 0;    //blue
-        PWM4DCH = v;    //green
-        PWM5DCH = 255;  //red
+        PWM6DCH = v;    //green
+        PWM7DCH = 255;  //red
     }
     //green-yellow 127-63
     else if (v >= 63) {
         v = Map(v, 63, 127, 0, 255);
-        PWM3DCH = 0;        //blue
-        PWM4DCH = 255;      //green
-        PWM5DCH = 255 - v;  //red
+        PWM6DCH = 255;      //green
+        PWM7DCH = 255 - v;  //red
     }
 }
 
@@ -107,26 +102,22 @@ void chrg_led() {
         switch(VBUS_CHRG_STATE[1]) {
             case 0b01:
                 //status is pre-charge
-                PWM3DCH = 0; //blue
-                PWM4DCH = 0; //green
-                PWM5DCH = c; //red         
+                PWM6DCH = 0; //green
+                PWM7DCH = c; //red         
             break;
             case 0b10:
                 //status is fast charge
-                PWM3DCH = 0; //blue
-                PWM4DCH = c; //green
-                PWM5DCH = c; //red    
+                PWM6DCH = c; //green
+                PWM7DCH = c; //red    
             break;
             case 0b11:
                 //charge is complete
-                PWM3DCH = 0; //blue
-                PWM4DCH = c; //green
-                PWM5DCH = 0; //red
+                PWM6DCH = c; //green
+                PWM7DCH = 0; //red
             break;
             default:
-                PWM3DCH = 0; //blue
-                PWM4DCH = 0; //green
-                PWM5DCH = 0; //red          
+                PWM6DCH = 0; //green
+                PWM7DCH = 0; //red          
         }        
     }
 }
@@ -140,14 +131,12 @@ void flash_led() {
         flash_time = get_time();
     } 
     if(flash_state) {
-        PWM3DCH = 0;
-        PWM4DCH = 0;
-        PWM5DCH = 255;
+        PWM6DCH = 0;
+        PWM7DCH = 255;
     }
     else {
-        PWM3DCH = 0;
-        PWM4DCH = 0;
-        PWM5DCH = 0; 
+        PWM6DCH = 0;
+        PWM7DCH = 0; 
     }  
 }
 
@@ -156,9 +145,8 @@ char mode = 2;
 void led_modes() {
     //this function is used to set some led modes that are cycled when pwr_btn is tapped
     if(mode == 0) {
-        PWM3DCH = 0;
-        PWM4DCH = 0;
-        PWM5DCH = 0;
+        PWM6DCH = 0;
+        PWM7DCH = 0;
     }
     else if(mode == 1) {
         RGB_fade();

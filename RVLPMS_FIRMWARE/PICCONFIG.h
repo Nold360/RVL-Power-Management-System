@@ -22,11 +22,11 @@
 
 // CONFIG2
 #pragma config MCLRE = OFF      // Master Clear Enable bit (MCLR pin function is port defined function)
-#pragma config PWRTE = OFF      // Power-up Timer Enable bit (PWRT disabled)
+#pragma config PWRTS = OFF      // Power-up Timer Enable bit (PWRT disabled)
 #pragma config LPBOREN = OFF    // Low-Power BOR enable bit (ULPBOR disabled)
 #pragma config BOREN = ON       // Brown-out reset enable bits (Brown-out Reset Enabled, SBOREN bit is ignored)
 #pragma config BORV = LO        // Brown-out Reset Voltage Selection (Brown-out Reset Voltage (VBOR) set to 1.9V on LF, and 2.45V on F Devices)
-#pragma config ZCD = OFF        // Zero-cross detect disable (Zero-cross detect circuit is disabled at POR.)
+#pragma config ZCDDIS = OFF        // Zero-cross detect disable (Zero-cross detect circuit is disabled at POR.)
 #pragma config PPS1WAY = OFF    // Peripheral Pin Select one-way control (The PPSLOCK bit can be set and cleared repeatedly by software)
 #pragma config STVREN = ON      // Stack Overflow/Underflow Reset Enable bit (Stack Overflow or Underflow will cause a reset)
 
@@ -55,6 +55,10 @@
 #define enable      RC5
 #define aux         RA2    
 #define thermistor  RA4
+
+#define FAN_MIN_DAC 20 // min_dac = FAN_MIN_VOLT * 32 / 3.3;
+#define FAN_MAX_ADC 210
+#define FAN_PIN RA0
 
 //PWM 3 4 5 on RC2, RC3, RC4
 
